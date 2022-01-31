@@ -1,0 +1,29 @@
+services:
+  db:
+    container_name: db
+    image: mariadb:10.5
+    restart: always
+    volumes:
+      - /mnt/new_disk/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=liverpool0310++)
+      - MYSQL_PASSWORD=liverpool0310+
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  app:
+    image: nextcloud
+    container_name: nextcloud
+    restart: always
+    ports:
+      - 8081:80
+    links:
+      - db
+    volumes:
+      - /mnt/new_disk/nextcloud:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=liverpool0310+
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+      
